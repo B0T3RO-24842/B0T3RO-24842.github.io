@@ -6,6 +6,7 @@ import { useRef, useState } from "react";
 export function Demo({ url, title }: { url: string; title: string }) {
   const dialog = useRef<HTMLDialogElement>(null);
   const [open, setOpen] = useState(false);
+  const [ready, setReady] = useState(false);
 
   return (
     <>
@@ -22,7 +23,10 @@ export function Demo({ url, title }: { url: string; title: string }) {
 
       <dialog
         ref={dialog}
-        onClose={() => setOpen(false)}
+        onClose={() => {
+          setOpen(false);
+          setReady(false);
+        }}
         aria-label={`Demo en vivo de ${title}`}
         className="m-auto h-[88dvh] w-[min(1100px,94vw)] overflow-hidden rounded-2xl border border-white/15 bg-tinta p-0 text-hueso backdrop:bg-black/75 backdrop:backdrop-blur-sm"
       >
@@ -36,7 +40,18 @@ export function Demo({ url, title }: { url: string; title: string }) {
           </form>
         </div>
         {/* only loads the site once the dialog is opened */}
-        {open && <iframe src={url} title={`Demo de ${title}`} className="h-[calc(100%-3rem)] w-full bg-white" />}
+        <div className="relative grid h-[calc(100%-3rem)] place-items-center">
+          {/* some demos take a few seconds to wake up */}
+          {!ready && <p className="font-mono text-sm opacity-60">Cargando demo…</p>}
+          {open && (
+            <iframe
+              src={url}
+              title={`Demo de ${title}`}
+              onLoad={() => setReady(true)}
+              className={`absolute inset-0 size-full ${ready ? "bg-white" : "opacity-0"}`}
+            />
+          )}
+        </div>
       </dialog>
     </>
   );

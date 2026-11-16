@@ -54,7 +54,7 @@ export default async function Page() {
             Ideas distintas, hechas para <span className="text-lima">tocarse</span>.
           </h1>
           <p className="mt-8 max-w-2xl text-lg leading-relaxed opacity-75">
-            Soy <strong className="font-semibold text-hueso">{site.name}</strong>, {site.role.toLowerCase()} en {site.city}. {site.bio}
+            Soy <strong className="font-semibold text-hueso">{site.name}</strong>. {site.role}, {site.city}. {site.bio}
           </p>
           <div className="mt-10 flex flex-wrap gap-4">
             <a href="#proyectos" className="rounded-full bg-hueso px-7 py-3.5 font-medium text-tinta transition hover:bg-white">
@@ -69,7 +69,7 @@ export default async function Page() {
           <dl className="mt-16 flex flex-wrap gap-x-12 gap-y-6 font-mono text-sm">
             {[
               [projects.length, "proyectos"],
-              [langs.length, "lenguajes"],
+              [langs.length, langs.length === 1 ? "lenguaje" : "lenguajes"],
               [projects.filter((p) => p.homepage).length, "demos en vivo"],
             ].map(([n, label]) => (
               <div key={label}>
