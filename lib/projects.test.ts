@@ -30,6 +30,8 @@ test("forks, archived, the profile repo and the site repo never show", () => {
   assert.deepEqual(got.map((r) => r.name), ["real"]);
 });
 
-test("titles read like words", () => {
-  assert.equal(titleOf("r-drop_project"), "r drop project");
+test("titles read like words and keep acronyms upper-case", () => {
+  assert.equal(titleOf("r-drop_project"), "R Drop Project");
+  assert.equal(titleOf("registro-n8n-ia"), "Registro N8N IA");
+  assert.equal(titleOf("producto-3d"), "Producto 3D");
 });

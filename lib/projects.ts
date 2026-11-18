@@ -24,8 +24,16 @@ export function pickProjects(repos: Repo[], { user, tag, featuredTag }: Rules): 
     .sort((a, b) => Number(b.featured) - Number(a.featured) || b.pushed_at.localeCompare(a.pushed_at));
 }
 
-// "r-drop_project" -> "r drop project"
-export const titleOf = (name: string) => name.replace(/[-_]+/g, " ").trim();
+// Words that must stay upper-case in a title.
+const ACRONYMS = new Set(["ia", "ai", "n8n", "3d", "api", "crud", "ui", "ux", "sql"]);
+
+// "registro-n8n-ia" -> "Registro N8N IA", "producto-3d" -> "Producto 3D"
+export const titleOf = (name: string) =>
+  name
+    .split(/[-_\s]+/)
+    .filter(Boolean)
+    .map((w) => (ACRONYMS.has(w.toLowerCase()) ? w.toUpperCase() : w.charAt(0).toUpperCase() + w.slice(1)))
+    .join(" ");
 
 // Stable colour per repo for the generated cover.
 export const hueOf = (name: string) => [...name].reduce((h, c) => (h * 31 + c.charCodeAt(0)) % 360, 7);

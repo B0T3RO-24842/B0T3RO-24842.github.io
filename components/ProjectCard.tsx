@@ -33,7 +33,7 @@ export function ProjectCard({ p, big = false }: { p: Project; big?: boolean }) {
 
       <div className="flex flex-1 flex-col gap-3 p-6">
         <div className="flex items-start justify-between gap-3">
-          <h3 className={`font-semibold tracking-tight capitalize ${big ? "text-3xl" : "text-xl"}`}>{title}</h3>
+          <h3 className={`font-semibold tracking-tight ${big ? "text-3xl" : "text-xl"}`}>{title}</h3>
           {p.featured && <span className="shrink-0 rounded-full bg-lima px-2.5 py-1 text-xs font-medium text-tinta">Destacado</span>}
         </div>
 
