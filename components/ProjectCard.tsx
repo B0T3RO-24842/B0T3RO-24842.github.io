@@ -3,7 +3,7 @@ import { hueOf, titleOf } from "@/lib/projects";
 import { site } from "@/site.config";
 import { Demo } from "./Demo";
 
-const DOT: Record<string, string> = { TypeScript: "#3178c6", JavaScript: "#f1e05a", HTML: "#e34c26", CSS: "#663399", PHP: "#4f5d95", Python: "#3572a5", Java: "#b07219" };
+const DOT: Record<string, string> = { TypeScript: "#3178c6", JavaScript: "#f1e05a", HTML: "#e34c26", CSS: "#663399", PHP: "#4f5d95", Python: "#3572a5", Java: "#b07219", SCSS: "#c6538c", Shell: "#89e051", Prisma: "#0c344b", Dockerfile: "#384d54", Hack: "#878787" };
 
 const date = new Intl.DateTimeFormat("es-CO", { month: "short", year: "numeric" });
 
@@ -40,12 +40,12 @@ export function ProjectCard({ p, big = false }: { p: Project; big?: boolean }) {
         <p className="text-sm leading-relaxed opacity-70">{p.description ?? "Descripción pendiente en GitHub."}</p>
 
         <ul className="flex flex-wrap gap-2 font-mono text-xs">
-          {p.language && (
-            <li className="flex items-center gap-1.5 rounded-full border border-white/15 px-2.5 py-1">
-              <span className="size-2 rounded-full" style={{ background: DOT[p.language] ?? "#888" }} />
-              {p.language}
+          {p.languages.map((l) => (
+            <li key={l} className="flex items-center gap-1.5 rounded-full border border-white/15 px-2.5 py-1">
+              <span className="size-2 rounded-full" style={{ background: DOT[l] ?? "#888" }} />
+              {l}
             </li>
-          )}
+          ))}
           {tags.map((t) => (
             <li key={t} className="rounded-full border border-white/15 px-2.5 py-1 opacity-70">
               {t}

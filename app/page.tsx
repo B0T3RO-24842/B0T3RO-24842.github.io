@@ -15,7 +15,7 @@ export default async function Page() {
 
   // Stack is counted from the projects themselves, so it never goes stale.
   const stack = new Map<string, number>();
-  for (const p of projects) if (p.language) stack.set(p.language, (stack.get(p.language) ?? 0) + 1);
+  for (const p of projects) for (const l of p.languages) stack.set(l, (stack.get(l) ?? 0) + 1);
   const langs = [...stack].sort((a, b) => b[1] - a[1]);
 
   const items: PaletteItem[] = [
